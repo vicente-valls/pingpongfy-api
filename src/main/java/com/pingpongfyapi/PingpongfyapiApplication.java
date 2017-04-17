@@ -1,5 +1,7 @@
 package com.pingpongfyapi;
 
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.pingpongfyapi.health.DynamodbHealthCheck;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -21,9 +23,12 @@ public class PingpongfyapiApplication extends Application<PingpongfyapiConfigura
     }
 
     @Override
-    public void run(final PingpongfyapiConfiguration configuration,
-                    final Environment environment) {
-        // TODO: implement application
+    public void run(
+        final PingpongfyapiConfiguration configuration,
+        final Environment environment
+    ) {
+        AmazonDynamoDB dynamoDbClient = configuration.getDynamodbClientFactory().build();
+        environment.healthChecks().register("dynamodb", new DynamodbHealthCheck(dynamoDbClient));
     }
 
 }

@@ -1,10 +1,19 @@
 package com.pingpongfyapi;
 
+import com.pingpongfyapi.db.DynamodbClientFactory;
 import io.dropwizard.Configuration;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.validator.constraints.*;
-import javax.validation.constraints.*;
 
 public class PingpongfyapiConfiguration extends Configuration {
-    // TODO: implement service configuration
+    private DynamodbClientFactory dynamodbClientFactory;
+
+    @JsonProperty("dynamodbConfiguration")
+    DynamodbClientFactory getDynamodbClientFactory() {
+        return dynamodbClientFactory;
+    }
+
+    @JsonProperty("dynamodbConfiguration")
+    public void setDynamodbClientFactory(DynamodbClientFactory dynamodbClientFactory) {
+        this.dynamodbClientFactory = dynamodbClientFactory;
+    }
 }

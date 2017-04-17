@@ -1,3 +1,5 @@
 dynamodbConfiguration:
   region: us-east-1
-  endpoint: http://dynamodb.foo
+  endpoint: http://dynamodb.foo:8000
+  accessKeyId: 123
+  secretAccessKey: 123

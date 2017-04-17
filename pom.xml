@@ -35,6 +35,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-bom</artifactId>
+                <version>1.11.119</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -42,6 +49,10 @@
         <dependency>
             <groupId>io.dropwizard</groupId>
             <artifactId>dropwizard-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-dynamodb</artifactId>
         </dependency>
     </dependencies>
 
@@ -154,8 +165,7 @@
                                     <port>${server.admin.port}:8081</port>
                                 </ports>
                                 <wait>
-                                    <!-- @todo change me to /health -->
-                                    <url>http://${docker.host.address}:${server.admin.port}</url>
+                                    <url>http://${docker.host.address}:${server.admin.port}/healthcheck</url>
                                     <time>10000</time>
                                 </wait>
                                 <links>
