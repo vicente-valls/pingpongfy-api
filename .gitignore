@@ -1,7 +1,19 @@
-
-
 # IntelliJ project files
 .idea
 *.iml
 out
 gen
+
+# config files
+src/main/resources/pingpongfy-api.yml
+!src/main/resources/pingpongfy-api.dist.yml
+
+# Build files
+*.class
+target/
+dependency-reduced-pom.xml
+
+# Package files
+*.jar
+*.war
+*.ear

@@ -21,6 +21,9 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <dropwizard.version>0.9.1</dropwizard.version>
         <mainClass>com.pingpongfyapi.PingpongfyapiApplication</mainClass>
+        <docker.host.address>localhost</docker.host.address>
+        <server.api.port>8080</server.api.port>
+        <server.admin.port>8081</server.admin.port>
     </properties>
 
     <dependencyManagement>
@@ -126,19 +129,80 @@
                 <configuration>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.20.1</version>
+                <configuration>
+                    <images>
+                        <image>
+                            <alias>api</alias>
+                            <name>pingpongfy/api:${project.version}</name>
+                            <build>
+                                <from>java:8</from>
+                                <assembly>
+                                    <descriptor>docker-assembly.xml</descriptor>
+                                </assembly>
+                                <cmd>
+                                    <shell>java -jar /maven/${project.build.finalName}.jar server /maven/pingpongfy-api.yml</shell>
+                                </cmd>
+                            </build>
+                            <run>
+                                <ports>
+                                    <port>${server.api.port}:8080</port>
+                                    <port>${server.admin.port}:8081</port>
+                                </ports>
+                                <wait>
+                                    <!-- @todo change me to /health -->
+                                    <url>http://${docker.host.address}:${server.admin.port}</url>
+                                    <time>10000</time>
+                                </wait>
+                                <links>
+                                    <link>dynamodb:dynamodb.foo</link>
+                                </links>
+                            </run>
+                        </image>
+                        <image>
+                            <alias>dynamodb</alias>
+                            <name>ryanratcliff/dynamodb</name>
+                            <run>
+                                <wait>
+                                    <log>dynamodb</log>
+                                    <time>20000</time>
+                                </wait>
+                            </run>
+                        </image>
+                    </images>
+                </configuration>
+
+                <!-- Connect start/stop to pre- and
+                     post-integration-test phase, respectively if you want to start
+                     your docker containers during integration tests -->
+                <executions>
+                    <execution>
+                        <id>start</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <!-- "build" should be used to create the images with the artifact -->
+                            <goal>build</goal>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
+
     </build>
     <reporting>
         <plugins>
-<!--            <plugin>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                    <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
-                    <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
-                </configuration>
-            </plugin>
--->
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.10.3</version>
