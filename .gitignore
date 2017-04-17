@@ -5,8 +5,8 @@ out
 gen
 
 # config files
-src/main/resources/pingpongfy-api.yml
-!src/main/resources/pingpongfy-api.dist.yml
+pingpongfy-api.yml
+!pingpongfy-api.dist.yml
 
 # Build files
 *.class
