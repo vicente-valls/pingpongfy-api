@@ -1,0 +1,8 @@
+component_depth: 4
+languages:
+- java
+production:
+  exclude:
+    - /src/main/docker/.*
+    - /src/main/resources/.*
+    - /src/main/java/META-INF/.*
