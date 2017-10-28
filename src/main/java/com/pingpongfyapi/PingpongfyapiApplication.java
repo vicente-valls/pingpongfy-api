@@ -2,6 +2,7 @@ package com.pingpongfyapi;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.pingpongfyapi.health.DynamodbHealthCheck;
+import com.pingpongfyapi.resources.TableResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -29,6 +30,8 @@ public class PingpongfyapiApplication extends Application<PingpongfyapiConfigura
     ) {
         AmazonDynamoDB dynamoDbClient = configuration.getDynamodbClientFactory().build();
         environment.healthChecks().register("dynamodb", new DynamodbHealthCheck(dynamoDbClient));
+        final TableResource tableResource = new TableResource();
+        environment.jersey().register(tableResource);
     }
 
 }
