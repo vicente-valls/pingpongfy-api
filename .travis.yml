@@ -1,0 +1,9 @@
+language: java
+
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - cp src/main/resources/pingpongfy-api.dist.yml src/main/resources/pingpongfy-api.yml
