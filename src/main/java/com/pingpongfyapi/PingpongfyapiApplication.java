@@ -20,7 +20,6 @@ public class PingpongfyapiApplication extends Application<PingpongfyapiConfigura
 
     @Override
     public void initialize(final Bootstrap<PingpongfyapiConfiguration> bootstrap) {
-        // TODO: application initialization
     }
 
     @Override
