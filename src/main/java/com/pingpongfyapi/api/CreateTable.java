@@ -1,9 +1,9 @@
 package com.pingpongfyapi.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.Pattern;
 
 public class CreateTable {
     @Length(min = 3, max = 5)
