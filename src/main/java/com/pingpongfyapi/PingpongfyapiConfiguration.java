@@ -1,8 +1,8 @@
 package com.pingpongfyapi;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pingpongfyapi.db.DynamodbClientFactory;
 import io.dropwizard.Configuration;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PingpongfyapiConfiguration extends Configuration {
     private DynamodbClientFactory dynamodbClientFactory;

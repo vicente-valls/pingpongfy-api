@@ -22,15 +22,19 @@ public class TableListResponse implements IResponseDto {
         this.isFree = isFree;
         this.updatedAt = updatedAt;
     }
+
     public int getId() {
         return id;
     }
+
     public String getDescription() {
         return description;
     }
+
     public boolean isFree() {
         return isFree;
     }
+
     public Date getUpdatedAt() {
         return updatedAt;
     }

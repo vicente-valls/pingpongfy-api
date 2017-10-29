@@ -1,6 +1,9 @@
 package com.pingpongfyapi.db;
 
-import com.amazonaws.auth.*;
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
@@ -66,9 +69,9 @@ public class DynamodbClientFactory {
             );
         }
         AmazonDynamoDBClientBuilder clientBuilder = AmazonDynamoDBClientBuilder
-        .standard()
-        .withCredentials(credentialsProvider)
-        ;
+            .standard()
+            .withCredentials(credentialsProvider)
+            ;
         if (!this.getEndpoint().isEmpty()) {
             clientBuilder.withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(
                 this.getEndpoint(), this.getRegion())
